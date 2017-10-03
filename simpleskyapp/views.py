@@ -1,30 +1,48 @@
 import os
+import datetime
+import json
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import RequestContext, Template
 
-import xml.etree.ElementTree as etree
-
+import pytz
 import requests
 from geopy.distance import vincenty
 
 def index(request):
-    #initialize
+    # initialize
     api = (os.environ.get("API"))
+    req_headers = {"api-key": api}
     loc_list = ""
-    req_baseurl = "http://api.nea.gov.sg/api/WebAPI/"
-    req_payloads = {"keyref": api}
+    loc_matrix = []
+    now = datetime.datetime.now(pytz.timezone("Singapore")).strftime("%Y-%m-%dT%H:%M:%S")
 
-    #2-hour nowcast
-    req_payloads["dataset"] = "2hr_nowcast"
-    req_2h = requests.get("http://api.nea.gov.sg/api/WebAPI/", params = req_payloads)
-    tree_2h = etree.XML(req_2h.text)
-    forecastissue_2h = tree_2h.find("item").find("forecastIssue")
-    print(forecastissue_2h.attrib["date"])
+    # 2-hour nowcast
+    url_2h = "https://api.data.gov.sg/v1/environment/2-hour-weather-forecast"
+    req_payloads = {"date_time": now}
+    req_2h = requests.get(url_2h, params=req_payloads, headers=req_headers)
+    json_2h = json.loads(req_2h.text)
 
-    #Populate location dropdown list
-    weatherforecast_2h = tree_2h.find("item").find("weatherForecast")
-    for child in weatherforecast_2h:
-        #print(child.attrib["name"])
-        loc_list += r"<option value=\"" + child.attrib["name"] + "\">" + child.attrib["name"] + "</option>"
+    # location magic
+    i = 0
+    for area in json_2h["area_metadata"]:
+        loc_list += "<option value=\"" + area["name"] + "\">" + area["name"] + "</option>"
+
+        loc_matrix.append({"name": area["name"], "lat": area["label_location"]["latitude"], "long": area["label_location"]["longitude"]})
+
+
+
+    #print(json_2h["area_metadata"][0]["name"])
+
+    #tree_2h = etree.XML(req_2h.text)
+    #forecastissue_2h = tree_2h.find("item").find("forecastIssue")
+    #print(forecastissue_2h.attrib["date"])
+
+    # location magic
+        #for i in range(0, 4):
+            #loc_matrix[] =
+
+        #i++
 
     #24-hour forecast
     #4-day outlook
@@ -32,7 +50,11 @@ def index(request):
 
     return render(request, "index.html", {
         "loc_list": loc_list,
-        "lastupdateddate_2h": forecastissue_2h.attrib["date"],
-        "lastupdatedtime_2h": forecastissue_2h.attrib["time"],
-        "output_2h": "filler",
+        #"lastupdateddate_2h": forecastissue_2h.attrib["date"],
+        #"lastupdatedtime_2h": forecastissue_2h.attrib["time"],
+        #"output_2h": "filler",
     })
+
+def ajax(request):
+    context = RequestContext(request)
+    return HttpResponse(template.render(context))

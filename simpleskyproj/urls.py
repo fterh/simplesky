@@ -19,6 +19,7 @@ from django.contrib import admin
 from simpleskyapp import views
 
 urlpatterns = [
-    url(r'', views.index, name='home'),
+    url(r'^$', views.index, name='home'),
+    url(r'^ajax/', views.ajax, name='ajax'),
     url(r'^admin/', admin.site.urls),
 ]

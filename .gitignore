@@ -50,3 +50,4 @@ Temporary Items
 manage.py
 .env
 venv/
+__pycache__/
