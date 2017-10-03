@@ -15,7 +15,8 @@ def index(request):
     req_headers = {"api-key": api}
     loc_list = ""
     loc_matrix = []
-    now = datetime.datetime.now(pytz.timezone("Singapore")).strftime("%Y-%m-%dT%H:%M:%S")
+    now = datetime.datetime.now(pytz.timezone("Singapore")). \
+        strftime("%Y-%m-%dT%H:%M:%S")
 
     # 2-hour nowcast
     url_2h = "https://api.data.gov.sg/v1/environment/2-hour-weather-forecast"
@@ -26,9 +27,14 @@ def index(request):
     # location magic
     i = 0
     for area in json_2h["area_metadata"]:
-        loc_list += "<option value=\"" + area["name"] + "\">" + area["name"] + "</option>"
+        loc_list += "<option value=\"" + area["name"] + "\">" + area["name"] \
+            + "</option>"
 
-        loc_matrix.append({"name": area["name"], "lat": area["label_location"]["latitude"], "long": area["label_location"]["longitude"]})
+        loc_matrix.append(
+            {"name": area["name"],
+            "lat": area["label_location"]["latitude"],
+            "long": area["label_location"]["longitude"]
+            })
 
 
 
