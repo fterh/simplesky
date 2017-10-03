@@ -12,26 +12,32 @@
 
     <h1>SimpleSky</h1>
 
-    <h2>Your location: </h2>
     <p>
         Latitude: <span id="latitude">?</span>
         Longitude: <span id="longitude">?</span>
     </p>
-    <p class="emphasize">
-        You are at: <span class="ajax-fill">?</span>
+
+    <h2 class="inline">2-hour Nowcast:</h2>
+    <span id="nowcast" class="data-output"></span>
+    <p>
+        Your location:
+        <span id="location" class="strong">?</span>
     </p>
     <p>
         Wrong? Choose your location:
-        <select>
+        <select id="select_2h">
             {% autoescape off %}{{ loc_list }}{% endautoescape %}
         </select>
     </p>
-    <h2>2-hour Nowcast</h2>
     <p>
-        Last updated: {{ lastupdateddate_2h }} at <time>{{ lastupdatedtime_2h }}</time>
+        Last updated: <time id="lastupdated_2h"></time>
     </p>
     <p>
         {{ 2h_output }}
     </p>
 
 {% endblock content %}
+
+{% block footer %}
+<!-- Acknowledgements, license, open source, attribution to data.gov.sg -->
+{% endblock footer %}
