@@ -1,0 +1,23 @@
+{% load staticfiles %}
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+
+  <title>
+      {% block title %}SimpleSky{% endblock title %}
+  </title>
+
+  <meta name="description" content="The no frills mobile weather web app">
+
+  <link rel="stylesheet" href="{% static "style.css" %}" />
+  {% block header %}{% endblock header %}
+</head>
+
+<body>
+    {% block content %}{% endblock content %}
+    {% block footer %}{% endblock footer %}
+</body>
+</html>
