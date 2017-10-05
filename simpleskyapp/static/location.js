@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
     // gets location
-    // needs refinement in error handling
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(positionAcquired, showError);
     } else {
@@ -28,7 +27,7 @@ $(document).ready(function() {
     // position acquired
     function positionAcquired(position) {
         displayPosition(position);
-        postLocation(position);
+        postLocation(position, false);
     }
 
     // displays location
@@ -38,7 +37,7 @@ $(document).ready(function() {
     }
 
     // POSTs location
-    function postLocation(position) {
+    function postLocation(position, user_select) {
         // CSRF
         var cookieValue = null;
         var name = "csrftoken";
@@ -52,30 +51,52 @@ $(document).ready(function() {
                 }
             }
         }
-        ajax(position, csrftoken);
+        ajax(position, csrftoken, user_select);
     }
 
-        // AJAX
-    function ajax(position, csrftoken) {
+    // AJAX
+    function ajax(position, csrftoken, user_select) {
         url = window.location + "ajax/";
-        $.ajax({
-            method: "POST",
-            url: url,
-            headers: {"X-CSRFToken": csrftoken},
-            data: {"lat": position.coords.latitude,
-                "long": position.coords.longitude}
-        }).done(function(data) {
-            json = JSON.parse(data)
-            $("#location").html(json["location"]);
-            $("#nowcast").html(json["nowcast"]);
-            $("#lastupdated_2h").html(json["lastupdated_2h"]);
-        })
+
+        if (user_select == false) {
+            $.ajax({
+                method: "POST",
+                url: url,
+                headers: {"X-CSRFToken": csrftoken},
+                data: {"lat": position.coords.latitude,
+                    "long": position.coords.longitude}
+            }).done(function(data) {
+                json = JSON.parse(data)
+                $("#location").html(json["location"]);
+                $("#nowcast").html(json["nowcast"]);
+                $("#lastupdated_2h").html(json["lastupdated_2h"]);
+            })
+        }
+
+        else if (user_select == true) {
+            $.ajax({
+                method: "POST",
+                url: url,
+                headers: {"X-CSRFToken": csrftoken},
+                data: {"lat": position["lat"],
+                    "long": position["long"]}
+            }).done(function(data) {
+                json = JSON.parse(data)
+                $("#location").html(json["location"]);
+                $("#nowcast").html(json["nowcast"]);
+                $("#lastupdated_2h").html(json["lastupdated_2h"]);
+            })
+        }
     }
 
     // manual location selection
         // nowcast
     $("#select_2h").change(function() {
-        val = $(this).val();
-        
+        lat = $("#select_2h option:selected").attr("data-lat");
+        long = $("#select_2h option:selected").attr("data-long");
+        var position = [];
+        position["lat"] = lat;
+        position["long"] = long;
+        postLocation(position, true);
     })
 })

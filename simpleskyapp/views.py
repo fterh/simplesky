@@ -26,8 +26,14 @@ def index(request):
     # location magic
     loc_list = ""
     for area in json_2h["area_metadata"]:
-        loc_list += "<option value=\"" + area["name"] + "\">" + area["name"] \
-            + "</option>"
+        # loc_list += '<option value="' + area['name'] + '" data-lat="' + area['label_location'].get('latitude') + '">' + area['name'] + '</option>'
+
+        print(area['label_location']['latitude'])
+
+        loc_list += '<option value="' + area['name'] \
+        + '" data-lat="' + str(area['label_location']['latitude']) \
+        + '" data-long="' + str(area['label_location']['longitude']) + '">' \
+        + area['name'] + '</option>'
 
         loc_matrix.append(
             {"name": area["name"],
