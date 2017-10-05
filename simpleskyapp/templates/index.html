@@ -10,30 +10,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{% static "location.js" %}"></script>
 
-    <h1>SimpleSky</h1>
-
-    <p>
-        Latitude: <span id="latitude">?</span>
-        Longitude: <span id="longitude">?</span>
-    </p>
-
-    <h2 class="inline">2-hour Nowcast:</h2>
-    <span id="nowcast" class="data-output"></span>
+    <!-- location -->
     <p>
         Your location:
         <span id="location" class="strong">?</span>
     </p>
     <p>
-        Wrong? Choose your location:
+        Not quite it?
         <select id="select_2h">
             {% autoescape off %}{{ loc_list }}{% endautoescape %}
         </select>
     </p>
     <p>
-        Last updated: <time id="lastupdated_2h"></time>
+        Latitude: <span id="latitude">?</span>
+        Longitude: <span id="longitude">?</span>
     </p>
+
+    <!-- temperature -->
+    <h2 class="inline">Temp:</h2>
+    <span id="temp" class="data-output"></span>
+
     <p>
-        {{ 2h_output }}
+        Last updated: <time id="lastupdated_temp"></time>
+    </p>
+
+    <!-- nowcast -->
+    <h2 class="inline">2-hour nowcast:</h2>
+    <span id="nowcast" class="data-output"></span>
+
+    <p>
+        Last updated: <time id="lastupdated_2h"></time>
     </p>
 
 {% endblock content %}

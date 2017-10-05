@@ -68,6 +68,7 @@ $(document).ready(function() {
             }).done(function(data) {
                 json = JSON.parse(data)
                 $("#location").html(json["location"]);
+                $("#temp").html(json["temp"]);
                 $("#nowcast").html(json["nowcast"]);
                 $("#lastupdated_2h").html(json["lastupdated_2h"]);
             })
@@ -83,6 +84,7 @@ $(document).ready(function() {
             }).done(function(data) {
                 json = JSON.parse(data)
                 $("#location").html(json["location"]);
+                $("#temp").html(json["temp"]);
                 $("#nowcast").html(json["nowcast"]);
                 $("#lastupdated_2h").html(json["lastupdated_2h"]);
             })
