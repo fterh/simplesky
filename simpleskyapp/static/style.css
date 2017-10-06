@@ -1,13 +1,19 @@
 .data-output {
     font-size: 150%;
     font-weight: bold;
-    text-decoration: underline;
 }
 
 .strong {
     font-weight: bold;
 }
 
-.inline {
+h2.inline {
+    font-size: 120%;
     display: inline;
+}
+
+table, th, td {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
 }

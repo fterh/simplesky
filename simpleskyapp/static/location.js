@@ -54,6 +54,17 @@ $(document).ready(function() {
         ajax(position, csrftoken, user_select);
     }
 
+    // loads data into page
+    function loadData(data) {
+        json = JSON.parse(data)
+        lastupdated_text_start = "Updated: <time>";
+        lastupdated_text_end = "</time>"
+        $("#location").html(json["location"]);
+        $("#temp").html(json["temp"]);
+        $("#rh").html(json["rh"]);
+        $("#nowcast").html(json["nowcast"]);
+    }
+
     // AJAX
     function ajax(position, csrftoken, user_select) {
         url = window.location + "ajax/";
@@ -66,11 +77,7 @@ $(document).ready(function() {
                 data: {"lat": position.coords.latitude,
                     "long": position.coords.longitude}
             }).done(function(data) {
-                json = JSON.parse(data)
-                $("#location").html(json["location"]);
-                $("#temp").html(json["temp"]);
-                $("#nowcast").html(json["nowcast"]);
-                $("#lastupdated_2h").html(json["lastupdated_2h"]);
+                loadData(data);
             })
         }
 
@@ -82,11 +89,7 @@ $(document).ready(function() {
                 data: {"lat": position["lat"],
                     "long": position["long"]}
             }).done(function(data) {
-                json = JSON.parse(data)
-                $("#location").html(json["location"]);
-                $("#temp").html(json["temp"]);
-                $("#nowcast").html(json["nowcast"]);
-                $("#lastupdated_2h").html(json["lastupdated_2h"]);
+                loadData(data);
             })
         }
     }

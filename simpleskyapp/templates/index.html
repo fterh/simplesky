@@ -15,31 +15,66 @@
         Your location:
         <span id="location" class="strong">?</span>
     </p>
+    <p>Latitude: <span id="latitude">?</span></p>
+    <p>Longitude: <span id="longitude">?</span></p>
     <p>
         Not quite it?
         <select id="select_2h">
             {% autoescape off %}{{ loc_list }}{% endautoescape %}
         </select>
     </p>
-    <p>
-        Latitude: <span id="latitude">?</span>
-        Longitude: <span id="longitude">?</span>
-    </p>
 
     <!-- temperature -->
-    <h2 class="inline">Temp:</h2>
-    <span id="temp" class="data-output"></span>
-
     <p>
-        Last updated: <time id="lastupdated_temp"></time>
+        <span id="temp" class="data-output"></span> @
+        <span id="rh" class="data-output"></span> relative humidity
+    </p>
+
+    <!-- air quality -->
+    <p>
+        <h2 class="inline">Air quality:</h2>
+        <table id="psi">
+            <th colspan="5">PSI</th>
+            <tr>
+                <td>North</td>
+                <td>South</td>
+                <td>East</td>
+                <td>West</td>
+                <td>Central</td>
+            </tr>
+            <tr>
+                <td>{{ psi_north }}</td>
+                <td>{{ psi_south }}</td>
+                <td>{{ psi_east }}</td>
+                <td>{{ psi_west }}</td>
+                <td>{{ psi_central }}</td>
+            </tr>
+        </table>
+
+        <table id="pm25">
+            <th colspan="5">PM2.5 (1-hourly)</th>
+            <tr>
+                <td>North</td>
+                <td>South</td>
+                <td>East</td>
+                <td>West</td>
+                <td>Central</td>
+            </tr>
+            <tr>
+                <td>{{ pm25_north }}</td>
+                <td>{{ pm25_south }}</td>
+                <td>{{ pm25_east }}</td>
+                <td>{{ pm25_west }}</td>
+                <td>{{ pm25_central }}</td>
+            </tr>
+        </table>
+        <span id="pm25" class="data-output"></span>
     </p>
 
     <!-- nowcast -->
-    <h2 class="inline">2-hour nowcast:</h2>
-    <span id="nowcast" class="data-output"></span>
-
     <p>
-        Last updated: <time id="lastupdated_2h"></time>
+        <h2 class="inline">2-hour nowcast:</h2>
+        <span id="nowcast" class="data-output"></span>
     </p>
 
 {% endblock content %}
