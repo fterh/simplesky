@@ -11,13 +11,13 @@ $(document).ready(function() {
     function showError(error) {
         switch (error.code) {
             case error.PERMISSION_DENIED:
-                alert("Unable to get your location; please select location manually");
+                alert("Unable to get your location (permission denied); please select location manually");
                 break;
             case error.POSITION_UNAVAILABLE:
-                alert("Unable to get your location; please select location manually");
+                alert("Unable to get your location (position unavailable); please select location manually");
                 break;
             case error.TIMEOUT:
-                alert("Unable to get your location; please select location manually");
+                alert("Unable to get your location (timeout); please select location manually");
                 break;
             case error.UNKNOWN_ERROR:
                 alert("Unknown error; please select location manually");
