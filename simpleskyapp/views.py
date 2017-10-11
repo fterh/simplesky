@@ -4,6 +4,7 @@ import json
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import RequestContext, Template
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 import pytz
 import requests
@@ -57,6 +58,7 @@ req_payloads_2h = {"date_time": now}
 req_2h = requests.get(url_2h, params=req_payloads_2h, headers=req_headers)
 json_2h = json.loads(req_2h.text)
 
+@ensure_csrf_cookie
 def index(request):
     # populate loc_matrix_temp
     for station in json_temp["metadata"]["stations"]:
