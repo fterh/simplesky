@@ -31,7 +31,7 @@ SECRET_KEY = '4md1lv_uv4t$e=c@1=i(s2q*!&h^)j0as%2h3o0s2gjhce_gsn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['simpleskysg.herokuapp.com']
 
 
 # Application definition
