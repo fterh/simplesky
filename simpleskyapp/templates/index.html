@@ -10,24 +10,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{% static "location.js" %}"></script>
 
-    <!-- location -->
-    <p>
-        Your location:
-        <span id="location" class="strong">?</span>
-    </p>
-    <p>Latitude: <span id="latitude">?</span></p>
-    <p>Longitude: <span id="longitude">?</span></p>
-    <p>
-        Not quite it?
-        <select id="select_2h">
-            {% autoescape off %}{{ loc_list }}{% endautoescape %}
-        </select>
-    </p>
-
     <!-- temperature -->
     <p>
         <span id="temp" class="data-output"></span> @
         <span id="rh" class="data-output"></span> relative humidity
+    </p>
+
+    <!-- nowcast -->
+    <p>
+        <h2 class="inline">2-hour nowcast:</h2>
+        <span id="nowcast" class="data-output"></span>
     </p>
 
     <!-- air quality -->
@@ -50,7 +42,9 @@
                 <td>{{ psi_central }}</td>
             </tr>
         </table>
+    </p>
 
+    <p>
         <table id="pm25">
             <th colspan="5">PM2.5 (1-hourly)</th>
             <tr>
@@ -71,14 +65,23 @@
         <span id="pm25" class="data-output"></span>
     </p>
 
-    <!-- nowcast -->
+    <!-- location -->
     <p>
-        <h2 class="inline">2-hour nowcast:</h2>
-        <span id="nowcast" class="data-output"></span>
+        Your location:
+        <span id="location" class="strong">?</span>
+    </p>
+    <p style="display: none;">
+        Lat: <span id="latitude">?</span>
+        Long: <span id="longitude">?</span>
+    </p>
+    <p>
+        Not quite it?
+        <select id="select_2h">
+            {% autoescape off %}{{ loc_list }}{% endautoescape %}
+        </select>
     </p>
 
 {% endblock content %}
 
 {% block footer %}
-<!-- Acknowledgements, license, open source, attribution to data.gov.sg -->
 {% endblock footer %}

@@ -20,6 +20,19 @@
 
 <body>
     {% block content %}{% endblock content %}
-    {% block footer %}{% endblock footer %}
+    <div id="footer">
+        <p>
+            Simplesky: the no-frills weather web app. A project by <em>fterh</em>.
+        </p>
+        <p>
+            <a href="https://github.com/fterh/simplesky">GitHub</a> |
+            Data sourced from <a href="https://data.gov.sg">Data.gov.sg</a>
+            under the <a href="https://data.gov.sg/open-data-licence">Singapore
+            Open Data License</a>.
+
+        </p>
+            <!-- Acknowledgements, license, open source, attribution to data.gov.sg -->
+        {% block footer %}{% endblock footer %}
+    </div>
 </body>
 </html>
